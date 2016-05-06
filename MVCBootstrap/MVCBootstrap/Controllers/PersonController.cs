@@ -24,7 +24,6 @@ namespace MVCBootstrap.Controllers
                 .MakeList<Person>(20);
         }
         // GET: Person
-        [NotificationFilter]
         public ActionResult Index()
         {
             //var context = new SiteDataContext();

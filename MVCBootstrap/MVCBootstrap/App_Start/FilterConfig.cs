@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using MVCBootstrap.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MVCBootstrap
@@ -8,6 +9,7 @@ namespace MVCBootstrap
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new NotificationFilter());
         }
     }
 }
