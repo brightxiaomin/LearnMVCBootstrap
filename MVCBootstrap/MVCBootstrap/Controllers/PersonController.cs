@@ -25,7 +25,19 @@ namespace MVCBootstrap.Controllers
         // GET: Person
         public ActionResult Index()
         {
-            return View(_people);
+            var context = new SiteDataContext();
+            var notifications = context.Notifications
+                .GroupBy(n => n.NotificationType)
+                .Select(g => new NotificationViewModel
+                {
+                    Count = g.Count(),
+                    NotificationType = g.Key.ToString(),
+                    BadgeClass = NotificationType.Email == g.Key
+                    ? "success"
+                    : "info"
+                });
+            ViewBag.Notifications = notifications;
+            return View();
         }
 
         public ActionResult SearchPeople(string searchText)
