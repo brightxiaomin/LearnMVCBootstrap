@@ -11,7 +11,7 @@ namespace MVCBootstrap.Controllers
 {
     public class PersonController : BaseController
     {
-        private static ICollection<Person> _people;
+        private static ICollection<Person> _people;//Test on my computer
 
         static PersonController()
         {
@@ -38,7 +38,7 @@ namespace MVCBootstrap.Controllers
             //        : "info"
             //    });
             //ViewBag.Notifications = notifications;
-            return View();
+            return View(_people);
         }
 
         public ActionResult SearchPeople(string searchText)
