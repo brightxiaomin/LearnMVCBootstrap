@@ -1,15 +1,30 @@
-﻿@using MVCBootstrap.Models
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using MVCBootstrap.Models
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @{
+    @*@{
         var theme = Session["CssTheme"] as string ?? Bootstrap.Theme.Stock;
     }
     @Styles.Render(Bootstrap.Bundle(theme))
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr") 
+    ---Day 23 ----*@
+
+    @{
+        var theme = Bootstrap.Theme.Stock;
+        if (User.Identity.IsAuthenticated)
+        {
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(userStore);
+            var user = manager.FindById(User.Identity.GetUserId());
+            theme = user.CssTheme ?? theme;
+        }
+        @Styles.Render(Bootstrap.Bundle(theme))
+    }
 
 </head>
 <body>
