@@ -19,6 +19,13 @@ namespace MVCBootstrap.Helper
 
             emailAddress = string.IsNullOrEmpty(emailAddress) ? string.Empty : emailAddress.Trim().ToLower();
 
+            // <-- adding support for CSS
+            if (!string.IsNullOrEmpty(options.CssClass))
+            {
+                imgTag.AddCssClass(options.CssClass);
+            }
+            // adding support for CSS  -->
+
             imgTag.Attributes.Add("src",
                 string.Format("http://www.gravatar.com/avatar/{0}?s={1}{2}{3}",
                     GetMd5Hash(emailAddress),

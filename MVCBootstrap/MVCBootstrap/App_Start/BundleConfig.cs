@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using MVCBootstrap.Helper;
+using System.Web;
 using System.Web.Optimization;
 
 namespace MVCBootstrap
@@ -23,10 +24,15 @@ namespace MVCBootstrap
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/bootstrap.custom.css",
-                      "~/Content/site.css"));
+            foreach (var theme in Bootstrap.Themes)
+            {
+                var stylePath = string.Format("~/Content/Themes/{0}/bootstrap.css", theme);
+
+                bundles.Add(new StyleBundle(Bootstrap.Bundle(theme)).Include(
+                            stylePath,
+                            "~/Content/bootstrap.custom.css",
+                            "~/Content/site.css"));
+            }
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

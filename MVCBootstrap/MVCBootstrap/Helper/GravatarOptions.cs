@@ -10,6 +10,7 @@ namespace MVCBootstrap.Helper
         public string DefaultImageType { get; set; }
         public string RatingLevel { get; set; }
         public int Size { get; set; }
+        public string CssClass { get; set; }
 
         public class DefaultImage
         {
