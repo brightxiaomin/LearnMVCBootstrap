@@ -1,4 +1,6 @@
-﻿using MVCBootstrap.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MVCBootstrap.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,14 @@ namespace MVCBootstrap.Filters
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-           
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated) return;
+
+            var userId = filterContext.HttpContext.User.Identity.GetUserId();
+
             var context = new SiteDataContext();
             var notifications = context.Notifications
+                .Where(n => n.UserId == userId)
+                .Where(n => !n.IsDismissed)
                 .GroupBy(n => n.NotificationType)
                 .Select(g => new NotificationViewModel
                 {
